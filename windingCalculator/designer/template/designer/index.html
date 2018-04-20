@@ -1,0 +1,10 @@
+{% if wire_list %}
+    <table>
+
+    {% for wire in wire_list %}
+        <tr><td>wire.diameter</td></tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No wire available.</p>
+{% endif %}

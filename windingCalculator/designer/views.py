@@ -13,6 +13,13 @@ from django.http import HttpResponse
 from .models import Wire
 
 def index(request):
+
+
+
+    #wire = Wire.objects.get(id=1)
+    #return HttpResponse(wire.diameter)
+
     wire_list = Wire.objects.all()
+
     context = {'wire_list': wire_list}
     return render(request, 'designer/index.html', context)

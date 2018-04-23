@@ -55,7 +55,7 @@ ROOT_URLCONF = 'windingCalculator.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["/home/fotech/git/primaryWindingsCalculator/windingCalculator/designer/template"],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

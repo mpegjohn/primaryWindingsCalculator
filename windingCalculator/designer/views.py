@@ -11,6 +11,7 @@ from django.http import HttpResponse
 #    return HttpResponse("Hello, world. You're at the designer index.")
 
 from .models import Wire
+from .forms import WireSizeForm
 
 def index(request):
 
@@ -30,7 +31,7 @@ def wire_size(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
+        form = WireSizeForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
@@ -39,8 +40,6 @@ def wire_size(request):
             return HttpResponseRedirect('/thanks/')
 
     # if a GET (or any other method) we'll create a blank form
-    else:
-        form = WireSizeForm()
-
-    return render(request, 'name.html', {'form': form})
+    form = WireSizeForm()
+    return render(request, 'designer/wire_size.html', {'form': form})
 

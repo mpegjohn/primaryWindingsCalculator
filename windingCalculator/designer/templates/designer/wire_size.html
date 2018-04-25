@@ -1,9 +1,10 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'designer/style.css' %}" />
-
-{{ form }}
-
+<form action="/wire/" method="post">
+    {{ form }}
+    <input type="submit" value="Submit" />
+</form>
 {% if wire_list %}
     <table>
         <tr><th>Bare diameter</th><th>Grade 1 diameter</th><th>Grade 2 diameter</th></tr>

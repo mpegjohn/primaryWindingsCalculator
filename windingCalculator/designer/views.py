@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from django.http import HttpResponse
@@ -37,7 +38,7 @@ def wire_size(request):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
+            return HttpResponseRedirect('/designer/wire/')
 
     # if a GET (or any other method) we'll create a blank form
     form = WireSizeForm()

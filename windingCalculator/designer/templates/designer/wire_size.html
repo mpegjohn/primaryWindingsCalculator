@@ -10,9 +10,19 @@
 <h1>Current density: {{ density }}</h1>
 {% if wire_list %}
     <table>
-        <tr><th>Bare diameter</th><th>Grade 1 diameter</th><th>Grade 2 diameter</th><th>Current capacity</th></tr>
+        <tr><
+            th>Bare diameter</th>
+            <th>Grade 1 diameter</th>
+            <th>Grade 2 diameter</th>
+            <th>Current capacity</th>
+        </tr>
     {% for wire in wire_list %}
-        <tr><td>{{ wire.diameter}} </td><td>{{ wire.grade_1_dia_max }}</td><td>{{ wire.grade_2_dia_max }}</td><td>{{ wire.current_capacity }}</td></tr>
+        <tr>
+            <td>{{ wire.diameter}} </td>
+            <td>{{ wire.grade_1_dia_max }}</td>
+            <td>{{ wire.grade_2_dia_max }}</td>
+            <td>{{ wire.current_capacity }}</td>
+        </tr>
     {% endfor %}
     </table>
 {% else %}

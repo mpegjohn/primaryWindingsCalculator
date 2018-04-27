@@ -11,23 +11,26 @@ class Wire(models.Model):
     grade_1_dia_max = models.FloatField()
     grade_2_dia_max = models.FloatField()
 
-    def resistance_per_m(self):
+    def calc_resistance_per_m(self):
         return 0.017241/(math.pi*(self.diameter/2) ** 2)
         
-    def resistance(self, length):
+    def calc_resistance(self, length):
         return  self.resistance_per_m() * length
 
-    def weight_per_m(self):
+    def calc_weight_per_m(self):
         return (math.pi*(self.diameter/2) ** 2) * 8.89
 
-    def weight(self, length):
+    def calc_weight(self, length):
         return self.weight_per_m() * length
 
-    def current_capacity(self, current_density):
-        return self.diameter * current_density
+    def calc_current_capacity(self, current_density):
+        return math.sqrt(self.calc_area()/ 2* math.pi)
 
-    def cost(self, length, price_per_kg):
-	return self.weight(length) * price_per_kg/1000
+    def calc_cost(self, length, price_per_kg):
+        return self.weight(length) * price_per_kg/1000
+
+    def calc_area(self):
+        return math.pi * ((self.diameter/2.0) ** 2)
 
 class Winding(models.Model):
     turns = models.IntegerField()

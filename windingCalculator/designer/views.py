@@ -40,24 +40,29 @@ def wire_size(request):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            return HttpResponseRedirect('/designer/wire/')
+
+            cd = form.cleaned_data['currentDensity']
+
+            for wire in wire_list:
+                wire.current_capacity = wire.calc_current_capacity(cd)
+
+            context = {'form': form, 'wire_list': wire_list, 'density': cd}
+
+            return render(request, 'designer/wire_size.html', context)
+            #return HttpResponseRedirect('/designer/wire/')
 
     else:
         # if a GET (or any other method) we'll create a blank form
 
         form = WireSizeForm()
 
-        wire_data=[]
-
         for wire in wire_list:
-            data = {'diameter': wire.diameter,
-                 'grade_1_dia_max': wire.grade_1_dia_max,
-                 'grade_2_dia_max': wire.grade_2_dia_max,
-                 'current_capacity': wire.current_capacity(3.0),}
-            wire_data.append(data)
+            wire.area = wire.calc_area()
+
+            wire.current_capacity = wire.calc_current_capacity(3.0)
 
 
-        context = {'form': form, 'wire_list': wire_data, 'density' : 3.0}
+        context = {'form': form, 'wire_list': wire_list, 'density' : 3.0}
 
         return render(request, 'designer/wire_size.html', context)
 

@@ -8,6 +8,7 @@
 </form>
 
 <h1>Current density: {{ density }}</h1>
+<h1>Length: {{ length }}</h1>
 {% if wire_list %}
     <table>
         <tr><
@@ -16,6 +17,10 @@
             <th>Grade 2 diameter</th>
             <th>Area</th>
             <th>Current capacity</th>
+            <th>Resistance per m</th>
+            <th>Resistance</th>
+            <th>Weight per m</th>
+            <th>Weight</th>
         </tr>
     {% for wire in wire_list %}
         <tr>
@@ -24,6 +29,10 @@
             <td>{{ wire.grade_2_dia_max }}</td>
             <td>{{ wire.area }}</td>
             <td>{{ wire.current_capacity }}</td>
+            <td>{{ wire.resistance_per_m }}</td>
+            <td>{{ wire.resistance }}</td>
+            <td>{{ wire.weight_per_m }}</td>
+            <td>{{ wire.weight }}</td>
         </tr>
     {% endfor %}
     </table>

@@ -15,16 +15,16 @@ class Wire(models.Model):
         return 0.017241/(math.pi*(self.diameter/2) ** 2)
         
     def calc_resistance(self, length):
-        return  self.resistance_per_m() * length
+        return  self.calc_resistance_per_m() * length
 
     def calc_weight_per_m(self):
         return (math.pi*(self.diameter/2) ** 2) * 8.89
 
     def calc_weight(self, length):
-        return self.weight_per_m() * length
+        return self.calc_weight_per_m() * length
 
     def calc_current_capacity(self, current_density):
-        return math.sqrt(self.calc_area()/ 2* math.pi)
+        return self.calc_area() * current_density
 
     def calc_cost(self, length, price_per_kg):
         return self.weight(length) * price_per_kg/1000
@@ -37,24 +37,57 @@ class Winding(models.Model):
     layers = models.IntegerField()
     turns_per_layer = models.IntegerField()
     wire = models.ForeignKey(Wire)
-    voltage = models.FloatField()
-    current = models.FloatField()
-    mean_length_turns = models.FloatField()
 
-    def resistance(self):
-        return self.wire.resistance(self.mean_length_turns * self.turns)
-
+class steel(models.Model):
+    name = models.CharField(max_length=100)
+    supplier = models.CharField(max_length=100)
+    grade = models.CharField()
+    thickness =models.FloatField()
 
 class Lamination(models.Model):
     lam_size = models.CharField(max_length=20)
-    measure_A = models.FloatField()
-    measure_B = models.FloatField()
-    measure_C = models.FloatField()
-    measure_D = models.FloatField()
-    measure_E = models.FloatField()
-    measure_F = models.FloatField()
-    measure_G = models.FloatField()
-    path_length = models.FloatField()
-    window_area = models.FloatField()
+
+    tongue_width = models.FloatField()
+
+    def calc_path_length(self):
+        return self.tongue_width * 5.6
+
+    def calc_width(self):
+        return self.tongue_width *3.0
+
+    def calc_height(self):
+        return  self.tongue_width * 2.5
+
+    def calc_window_height(self):
+        return self.tongue_width * 1.5
+
+    def calc_window_width(self):
+        return  self.tongue_width * 0.5
+
+    def calc_window_area(self):
+        return self.calc_window_height() * self.calc_window_width()
+
+class Core(models.Model):
+    laminations = models.ForeignKey(Lamination)
+    steel = models.ForeignKey(steel)
+    stack = models.FloatField()
+
+class Inductor(models.Model):
+
+    name = models.CharField(max_length=200)
+    description = models.CharField(max_length=100)
+
+    winding = models.ForeignKey(Winding)
+    core = models.ForeignKey(Core)
+
+    target_inductance = models.FloatField()
+    current_density = models.FloatField()
+
+    dc_current = models.FloatField()
+    ac_voltage = models.FloatField()
 
 
+
+
+    def resistance(self):
+        return self.wire.resistance(self.mean_length_turns * self.turns)

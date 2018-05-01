@@ -15,9 +15,6 @@ from .models import Wire
 from .forms import WireSizeForm
 
 def index(request):
-
-
-
     #wire = Wire.objects.get(id=1)
     #return HttpResponse(wire.diameter)
 
@@ -42,15 +39,19 @@ def wire_size(request):
             # redirect to a new URL:
 
             cd = form.cleaned_data['currentDensity']
+            length = form.cleaned_data['length']
 
             for wire in wire_list:
+                wire.area = wire.calc_area()
+                wire.resistance_per_m = wire.calc_resistance_per_m()
                 wire.current_capacity = wire.calc_current_capacity(cd)
+                wire.resistance = wire.calc_resistance(length)
+                wire.weight_per_m = wire.calc_weight_per_m()
+                wire.weight = wire.calc_weight(length)
 
-            context = {'form': form, 'wire_list': wire_list, 'density': cd}
+            context = {'form': form, 'wire_list': wire_list, 'density': cd, 'length': length}
 
             return render(request, 'designer/wire_size.html', context)
-            #return HttpResponseRedirect('/designer/wire/')
-
     else:
         # if a GET (or any other method) we'll create a blank form
 
@@ -58,11 +59,13 @@ def wire_size(request):
 
         for wire in wire_list:
             wire.area = wire.calc_area()
-
+            wire.resistance_per_m = wire.calc_resistance_per_m()
             wire.current_capacity = wire.calc_current_capacity(3.0)
+            wire.resistance = wire.calc_resistance(1.0)
+            wire.weight_per_m = wire.calc_weight_per_m()
+            wire.weight = wire.calc_weight(1.0)
 
-
-        context = {'form': form, 'wire_list': wire_list, 'density' : 3.0}
+        context = {'form': form, 'wire_list': wire_list, 'density': 3.0, 'length': 1.0}
 
         return render(request, 'designer/wire_size.html', context)
 

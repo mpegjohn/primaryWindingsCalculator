@@ -7,7 +7,7 @@
     <input type="submit" value="Submit" />
 </form>
 <h1>Laminations</h1>
-{% if laminations %}
+
     <table>
         <tr>
             <th>Tongue Width</th>
@@ -19,6 +19,7 @@
             <th>Magnetic Path length</th>
             <th>Edit/Delete</th>
         </tr>
+        {% if laminations %}
         {% for lamination in laminations %}
         <tr>
             <td>{{ lamination.tongue_width }}</td>
@@ -34,5 +35,5 @@
             </td>
         </tr>
         {% endfor %}
+        {% endif %}
     </table>
-{% endif %}

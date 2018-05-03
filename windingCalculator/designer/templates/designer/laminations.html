@@ -19,6 +19,20 @@
             <th>Magnetic Path length</th>
             <th>Edit/Delete</th>
         </tr>
-
-
+        {% for lamination in laminations %}
+        <tr>
+            <td>{{ lamination.tongue_width }}</td>
+            <td>{{ lamination.width }}</td>
+            <td>{{ lamination.height }}</td>
+            <td>{{ lamination.window_height }}</td>
+            <td>{{ lamination.window_width }}</td>
+            <td>{{ lamination.window_area }}</td>
+            <td>{{ lamination.mag_path }}</td>
+            <td>
+                <a href="/edit{{ laminations.id }}">Edit</a>
+                <a href="/delete{{ laminations.id }}">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
     </table>
+{% endif %}

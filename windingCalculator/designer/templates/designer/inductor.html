@@ -1,0 +1,15 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'designer/style.css' %}" />
+
+
+<form action="/designer/inductor/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" />
+</form>
+
+
+
+
+<img src="{% static "designer/EI_lamination.jpg" %}" alt="Lamination image"/>

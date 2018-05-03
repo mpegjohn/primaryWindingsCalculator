@@ -41,7 +41,7 @@ class Winding(models.Model):
 class steel(models.Model):
     name = models.CharField(max_length=100)
     supplier = models.CharField(max_length=100)
-    grade = models.CharField()
+    grade = models.CharField(max_length=100)
     thickness =models.FloatField()
 
 class Lamination(models.Model):

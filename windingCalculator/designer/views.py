@@ -69,3 +69,17 @@ def wire_size(request):
 
         return render(request, 'designer/wire_size.html', context)
 
+def laminations(request):
+
+    context = {}
+
+    return render(request, 'designer/laminations.html', context)
+
+def inductor(request):
+
+
+
+    context = {}
+
+    return render(request, 'designer/inductor.html', context)
+

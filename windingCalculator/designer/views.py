@@ -14,7 +14,7 @@ from django.http import HttpResponse
 from .models import Wire
 from .forms import WireSizeForm
 from .models import Lamination
-
+from .forms import  LamForm
 
 
 def index(request):
@@ -73,8 +73,16 @@ def wire_size(request):
         return render(request, 'designer/wire_size.html', context)
 
 def laminations(request):
-
     laminations = Lamination.objects.all()
+
+    form = LamForm()
+
+    if request.method == 'POST':
+        form = LamForm(request.POST)
+
+        if form.is_valid():
+            lamination = Lamination(lam_size=form.cleaned_data['size'], tongue_width =form.cleaned_data['tongue_width'])
+            lamination.save()
 
     for lamination in laminations:
         lamination.width = lamination.calc_width()
@@ -83,7 +91,7 @@ def laminations(request):
         lamination.window_width = lamination.calc_window_width()
         lamination.window_area = lamination.calc_window_area()
 
-    context = {'laminations':laminations}
+    context = {'laminations':laminations, 'form':form}
 
     return render(request, 'designer/laminations.html', context)
 

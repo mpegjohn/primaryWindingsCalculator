@@ -45,7 +45,7 @@ class steel(models.Model):
     thickness =models.FloatField()
 
 class Lamination(models.Model):
-    lam_size = models.CharField(max_length=20)
+    name = models.CharField(max_length=20)
 
     tongue_width = models.FloatField()
 

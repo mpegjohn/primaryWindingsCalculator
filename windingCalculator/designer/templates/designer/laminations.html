@@ -1,39 +1,51 @@
-{% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'designer/style.css' %}" />
-<form action="/designer/laminations/" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit" />
-</form>
-<h1>Laminations</h1>
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Laminations</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'designer/style.css' %}" />
+    </head>
 
-    <table>
-        <tr>
-            <th>Tongue Width</th>
-            <th>Width</th>
-            <th>Height</th>
-            <th>Window Height</th>
-            <th>Windoe Width</th>
-            <th>Window Area</th>
-            <th>Magnetic Path length</th>
-            <th>Edit/Delete</th>
-        </tr>
-        {% if laminations %}
-        {% for lamination in laminations %}
-        <tr>
-            <td>{{ lamination.tongue_width }}</td>
-            <td>{{ lamination.width }}</td>
-            <td>{{ lamination.height }}</td>
-            <td>{{ lamination.window_height }}</td>
-            <td>{{ lamination.window_width }}</td>
-            <td>{{ lamination.window_area }}</td>
-            <td>{{ lamination.mag_path }}</td>
-            <td>
-                <a href="/edit{{ laminations.id }}">Edit</a>
-                <a href="/delete{{ laminations.id }}"> Delete</a>
-            </td>
-        </tr>
-        {% endfor %}
-        {% endif %}
-    </table>
+    <body>
+        <form action="/designer/laminations/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit" />
+        </form>
+        <h1>Laminations</h1>
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Tongue Width</th>
+                <th>Width</th>
+                <th>Height</th>
+                <th>Window Height</th>
+                <th>Window Width</th>
+                <th>Window Area</th>
+                <th>Magnetic Path length</th>
+                <th>Edit/Delete</th>
+            </tr>
+            {% if laminations %}
+            {% for lamination in laminations %}
+            <tr>
+                <td>{{ lamination.name }}</td>
+                <td>{{ lamination.tongue_width }}</td>
+                <td>{{ lamination.width }}</td>
+                <td>{{ lamination.height }}</td>
+                <td>{{ lamination.window_height }}</td>
+                <td>{{ lamination.window_width }}</td>
+                <td>{{ lamination.window_area }}</td>
+                <td>{{ lamination.mag_path }}</td>
+                <td>
+                    <a href="edit/{{ lamination.id }}">Edit</a>
+                    <a href="delete/{{ lamination.id }}"> Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+    </body>
+</html>

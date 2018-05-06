@@ -5,5 +5,5 @@ class WireSizeForm(forms.Form):
     length = forms.FloatField(label="Length in m", help_text="Enter the length in metres")
 
 class LamForm(forms.Form):
-    size = forms.CharField(max_length=20, label="Lamination size", help_text="The name or pattern number")
-    tongue_width = forms.FloatField(label="Toungue width in mm", help_text="Tongue width in mm")
+    name = forms.CharField(max_length=20, label="Lamination name")
+    tongue_width = forms.FloatField(label="Toungue width in mm")

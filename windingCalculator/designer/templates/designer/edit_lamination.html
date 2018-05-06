@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    <head>
+
+        <meta charset="UTF-8">
+        <title>Edit lamination</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'designer/style.css' %}" />
+    </head>
+    <body>
+        <h1>Edit data for lamination</h1>
+        <form action="/designer/laminations/update/{{ lamination.id }}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit" />
+        </form>
+    </body>
+</html>

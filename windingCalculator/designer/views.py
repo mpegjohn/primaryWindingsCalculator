@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.shortcuts import redirect
 
 from django.http import HttpResponse
 
@@ -81,7 +82,7 @@ def laminations(request):
         form = LamForm(request.POST)
 
         if form.is_valid():
-            lamination = Lamination(lam_size=form.cleaned_data['size'], tongue_width =form.cleaned_data['tongue_width'])
+            lamination = Lamination(name=form.cleaned_data['name'], tongue_width =form.cleaned_data['tongue_width'])
             lamination.save()
 
     for lamination in laminations:
@@ -89,11 +90,37 @@ def laminations(request):
         lamination.height = lamination.calc_height()
         lamination.window_height = lamination.calc_window_height()
         lamination.window_width = lamination.calc_window_width()
+        lamination.mag_path = lamination.calc_path_length()
         lamination.window_area = lamination.calc_window_area()
 
     context = {'laminations':laminations, 'form':form}
 
     return render(request, 'designer/laminations.html', context)
+
+def edit_lamination(request, id):
+    lamination = Lamination.objects.get(id=id)
+
+    form = LamForm(initial={'name':lamination.name, 'tongue_width': lamination.tongue_width})
+
+    context = {'lamination' :lamination, 'form': form}
+    return render(request, 'designer/edit_lamination.html', context)
+
+def update_lamination(request, id):
+    form = LamForm(request.POST)
+
+    if form.is_valid():
+        lamination = Lamination.objects.get(id=id)
+        lamination.name = name=form.cleaned_data['name']
+        lamination.tongue_width = form.cleaned_data['tongue_width']
+        lamination.save()
+    return redirect('laminations')
+
+
+def delete_lamination(request, id):
+
+    lamination = Lamination.objects.get(id=id)
+    lamination.delete()
+    return redirect('laminations')
 
 def inductor(request):
 

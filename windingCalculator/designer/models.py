@@ -68,8 +68,8 @@ class Lamination(models.Model):
         return self.calc_window_height() * self.calc_window_width()
 
 class Core(models.Model):
+    name = models.CharField(max_length=100, default="")
     laminations = models.ForeignKey(Lamination)
-    steel = models.ForeignKey(steel)
     stack = models.FloatField()
 
 class Inductor(models.Model):

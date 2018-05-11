@@ -67,10 +67,16 @@ class Lamination(models.Model):
     def calc_window_area(self):
         return self.calc_window_height() * self.calc_window_width()
 
+    def __str__(self):
+        return self.name
+
 class Core(models.Model):
     name = models.CharField(max_length=100, default="")
     laminations = models.ForeignKey(Lamination)
     stack = models.FloatField()
+
+    def __str__(self):
+        return self.name
 
 class Inductor(models.Model):
 

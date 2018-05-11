@@ -1,4 +1,5 @@
 from django import forms
+from models import Lamination
 
 class WireSizeForm(forms.Form):
     currentDensity = forms.FloatField(label="Current density in A/m^2", help_text="Enter the desired current density")
@@ -7,3 +8,9 @@ class WireSizeForm(forms.Form):
 class LamForm(forms.Form):
     name = forms.CharField(max_length=20, label="Lamination name")
     tongue_width = forms.FloatField(label="Toungue width in mm")
+
+class CoreForm(forms.Form):
+
+    name = forms.CharField(max_length=20, label="Lamination name")
+
+    lamination = forms.ModelChoiceField(queryset=Lamination.objects.all())

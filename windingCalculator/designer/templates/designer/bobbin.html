@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Bobbins</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'designer/style.css' %}" />
+    </head>
+
+    <body>
+        <form action="/designer/bobbins/" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit" />
+        </form>
+        <h1>Bobbins</h1>
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Core</th>
+                <th>Type</th>
+                <th>Section Length</th>
+                <th>Section Depth</th>
+                <th>Material thickness</th>
+                <th>Actions</th>
+            </tr>
+            {% if bobbin_list %}
+            {% for bobbin in bobbin_list %}
+            <tr>
+                <td>{{ bobbin.name }}</td>
+                <td>{{ bobbin.core }}</td>
+                <td>{{ bobbin.type }}</td>
+                <td>{{ bobbin.section_winding_length }}</td>
+                <td>{{ bobbin.section_winding_depth }}</td>
+                <td>{{ bobbin.meterial_thickness }}</td>
+                <td>
+                    <a href="edit/{{ bobbin.id }}">Edit</a>
+                    <a href="delete/{{ bobbin.id }}"> Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+    </body>
+</html>

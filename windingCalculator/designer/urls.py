@@ -14,5 +14,6 @@ urlpatterns = [
     url(r'cores/edit/(?P<id>\d+)$', views.edit_cores),
     url(r'cores/update/(?P<id>\d+)$', views.update_cores),
     url(r'cores/delete/(?P<id>\d+)$', views.delete_cores, name='delete_cores'),
+    url(r'bobbins/$', views.bobbins, name='bobbins'),
 
 ]

@@ -88,6 +88,23 @@ class Core(models.Model):
     def __str__(self):
         return self.name
 
+class Bobbin(models.Model):
+    TYPES = (
+        ('SS', 'SS'),
+        ('DS', 'DS'),
+        ('SDS', 'SDS'),
+    )
+
+    name = models.CharField(max_length=100)
+    core = models.ForeignKey(Core)
+    type = models.CharField(max_length=100, choices=TYPES)
+    section_winding_length = models.FloatField()
+    section_winding_depth  = models.FloatField()
+    meterial_thickness = models.FloatField()
+
+    def __str__(self):
+        return self.name
+
 class Inductor(models.Model):
 
     name = models.CharField(max_length=200)

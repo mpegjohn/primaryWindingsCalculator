@@ -16,9 +16,10 @@ from .models import Wire
 from .forms import WireSizeForm
 from .models import Lamination
 from .forms import  LamForm
-from .models import  Core
+from .models import Core
 from .forms import CoreForm
-
+from .models import Bobbin
+from .forms import BobbinForm
 
 def index(request):
     #wire = Wire.objects.get(id=1)
@@ -164,7 +165,6 @@ def cores(request):
 
     return render(request, 'designer/core.html', context)
 
-
 def edit_cores(request, id):
     core = Core.objects.get(id=id)
 
@@ -196,3 +196,39 @@ def inductor(request):
 
     return render(request, 'designer/inductor.html', context)
 
+
+def bobbins(request):
+    bobbin_list = Bobbin.objects.all()
+
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = BobbinForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            # name = form.cleaned_data['name']
+            # stack = form.cleaned_data['stack']
+            # stack_factor = form.cleaned_data['stack_factor']
+            # lamination = form.cleaned_data['lamination']
+            #
+            # core = Core(name=name, stack=stack, stack_factor=stack_factor, laminations=lamination)
+            # core.save()
+            #
+            # for core in core_list:
+            #     core.area = core.calc_area()
+            #     core.weight = core.calc_weight()
+            #
+            context = {'form': form, 'bobbin_list': bobbin_list}
+
+            return render(request, 'designer/core.html', context)
+    else:
+        # if a GET (or any other method) we'll create a blank form
+
+        form = BobbinForm()
+
+        context = {'form': form, 'bobbin_list': bobbin_list}
+
+    return render(request, 'designer/bobbin.html', context)

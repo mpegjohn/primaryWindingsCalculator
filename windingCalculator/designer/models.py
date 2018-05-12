@@ -74,6 +74,16 @@ class Core(models.Model):
     name = models.CharField(max_length=100, default="")
     laminations = models.ForeignKey(Lamination)
     stack = models.FloatField()
+    stack_factor = models.FloatField(default=0.92)
+
+    def calc_area(self):
+        return self.laminations.tongue_width * self.stack
+
+    def calc_cubic_cm(self):
+       return (6 * ((self.laminations.tongue_width/10.0) ) ** 2) * self.stack/10.0
+
+    def calc_weight(self):
+        return self.calc_cubic_cm() * .0078 * self.stack_factor
 
     def __str__(self):
         return self.name

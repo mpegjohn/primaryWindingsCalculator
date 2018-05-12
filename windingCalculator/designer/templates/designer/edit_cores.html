@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    <head>
+
+        <meta charset="UTF-8">
+        <title>Edit cores</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'designer/style.css' %}" />
+    </head>
+    <body>
+        <h1>Edit data for core</h1>
+        <form action="/designer/cores/update/{{ core.id }}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit" />
+        </form>
+    </body>
+</html>

@@ -9,39 +9,35 @@
     </head>
 
     <body>
-        <form action="/designer/laminations/" method="post">
+        <form action="/designer/cores/" method="post">
             {% csrf_token %}
             {{ form }}
             <input type="submit" value="Submit" />
         </form>
-        <h1>Laminations</h1>
+        <h1>Cores</h1>
 
         <table>
             <tr>
                 <th>Name</th>
-                <th>Tongue Width</th>
-                <th>Width</th>
-                <th>Height</th>
-                <th>Window Height</th>
-                <th>Window Width</th>
-                <th>Window Area</th>
-                <th>Magnetic Path length</th>
-                <th>Edit/Delete</th>
+                <th>Stack</th>
+                <th>Lamination</th>
+                <th>Stacking factor</th>
+                <th>Area mm^2</th>
+                <th>Weight Kg</th>
+                <th>Actions</th>
             </tr>
-            {% if laminations %}
-            {% for lamination in laminations %}
+            {% if core_list %}
+            {% for core in core_list %}
             <tr>
-                <td>{{ lamination.name }}</td>
-                <td>{{ lamination.tongue_width }}</td>
-                <td>{{ lamination.width }}</td>
-                <td>{{ lamination.height }}</td>
-                <td>{{ lamination.window_height }}</td>
-                <td>{{ lamination.window_width }}</td>
-                <td>{{ lamination.window_area }}</td>
-                <td>{{ lamination.mag_path }}</td>
+                <td>{{ core.name }}</td>
+                <td>{{ core.stack }}</td>
+                <td>{{ core.laminations }}</td>
+                <td>{{ core.stack_factor }}</td>
+                <td>{{ core.area }}</td>
+                <td>{{ core.weight }}</td>
                 <td>
-                    <a href="edit/{{ lamination.id }}">Edit</a>
-                    <a href="delete/{{ lamination.id }}"> Delete</a>
+                    <a href="edit/{{ core.id }}">Edit</a>
+                    <a href="delete/{{ core.id }}"> Delete</a>
                 </td>
             </tr>
             {% endfor %}

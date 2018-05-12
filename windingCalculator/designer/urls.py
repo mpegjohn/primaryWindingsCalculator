@@ -10,4 +10,9 @@ urlpatterns = [
     url(r'laminations/edit/(?P<id>\d+)$', views.edit_lamination),
     url(r'laminations/update/(?P<id>\d+)$', views.update_lamination),
     url(r'laminations/delete/(?P<id>\d+)$', views.delete_lamination, name='delete_lamination'),
+    url(r'cores/$', views.cores, name='cores'),
+    url(r'cores/edit/(?P<id>\d+)$', views.edit_cores),
+    url(r'cores/update/(?P<id>\d+)$', views.update_cores),
+    url(r'cores/delete/(?P<id>\d+)$', views.delete_cores, name='delete_cores'),
+
 ]

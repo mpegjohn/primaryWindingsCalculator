@@ -230,3 +230,15 @@ def bobbins(request):
         context = {'form': form, 'bobbin_list': bobbin_list}
 
     return render(request, 'designer/bobbin.html', context)
+
+def edit_bobbins(request, id):
+    bobbin = Bobbin.objects.get(id=id)
+
+    form = BobbinForm(initial={'name':bobbin.name, 'core':bobbin.core, 'type':bobbin.type,
+                               'section_winding_length':bobbin.section_winding_length,
+                      'section_winding_depth':bobbin.section_winding_depth,
+                      'meterial_thickness':bobbin.meterial_thickness}
+                      )
+
+    context = {'form': form, 'bobbin': bobbin}
+    return render(request, 'designer/edit_bobbin.html', context)

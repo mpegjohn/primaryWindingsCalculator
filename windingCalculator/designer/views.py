@@ -159,7 +159,6 @@ def cores(request):
         for core in core_list:
             core.area = core.calc_area()
             core.weight = core.calc_weight()
-            print(core.calc_cubic_cm())
 
         context = {'form': form, 'core_list': core_list}
 
@@ -206,24 +205,23 @@ def bobbins(request):
         form = BobbinForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            # name = form.cleaned_data['name']
-            # stack = form.cleaned_data['stack']
-            # stack_factor = form.cleaned_data['stack_factor']
-            # lamination = form.cleaned_data['lamination']
-            #
-            # core = Core(name=name, stack=stack, stack_factor=stack_factor, laminations=lamination)
-            # core.save()
-            #
-            # for core in core_list:
-            #     core.area = core.calc_area()
-            #     core.weight = core.calc_weight()
-            #
+            name = form.cleaned_data['name']
+            core = form.cleaned_data['core']
+            type = form.cleaned_data['type']
+            section_winding_length = form.cleaned_data['section_winding_length']
+            section_winding_depth = form.cleaned_data['section_winding_depth']
+            meterial_thickness = form.cleaned_data['meterial_thickness']
+
+            bobbin = Bobbin(name=name, core=core, type=type,
+                            section_winding_length=section_winding_length,
+                            section_winding_depth=section_winding_depth,
+                            meterial_thickness=meterial_thickness)
+
+            bobbin.save()
+
             context = {'form': form, 'bobbin_list': bobbin_list}
 
-            return render(request, 'designer/core.html', context)
+            return render(request, 'designer/bobbin.html', context)
     else:
         # if a GET (or any other method) we'll create a blank form
 

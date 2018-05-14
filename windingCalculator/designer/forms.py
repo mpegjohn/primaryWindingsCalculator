@@ -24,5 +24,4 @@ class BobbinForm(forms.Form):
     section_winding_length = forms.FloatField()
     section_winding_depth = forms.FloatField()
     meterial_thickness = forms.FloatField()
-    has_terminals = forms.BooleanField(initial=True)
     number_terminals = forms.IntegerField(initial=18)

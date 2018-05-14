@@ -24,6 +24,7 @@
                 <th>Section Length</th>
                 <th>Section Depth</th>
                 <th>Material thickness</th>
+                <th>number of terminals</th>
                 <th>Actions</th>
             </tr>
             {% if bobbin_list %}
@@ -35,6 +36,7 @@
                 <td>{{ bobbin.section_winding_length }}</td>
                 <td>{{ bobbin.section_winding_depth }}</td>
                 <td>{{ bobbin.meterial_thickness }}</td>
+                <td>{{ bobbin.number_terminals }}</td>
                 <td>
                     <a href="edit/{{ bobbin.id }}">Edit</a>
                     <a href="delete/{{ bobbin.id }}"> Delete</a>

@@ -101,7 +101,6 @@ class Bobbin(models.Model):
     section_winding_length = models.FloatField()
     section_winding_depth  = models.FloatField()
     meterial_thickness = models.FloatField()
-    has_terminals = models.BooleanField(default=True)
     number_terminals = models.IntegerField(default=18)
 
     def __str__(self):

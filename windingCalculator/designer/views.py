@@ -211,14 +211,12 @@ def bobbins(request):
             section_winding_length = form.cleaned_data['section_winding_length']
             section_winding_depth = form.cleaned_data['section_winding_depth']
             meterial_thickness = form.cleaned_data['meterial_thickness']
-            has_terminals = form.cleaned_data['has_terminals']
             number_terminals = form.cleaned_data['number_terminals']
 
             bobbin = Bobbin(name=name, core=core, type=type,
                             section_winding_length=section_winding_length,
                             section_winding_depth=section_winding_depth,
                             meterial_thickness=meterial_thickness,
-                            has_terminals=has_terminals,
                             number_terminals=number_terminals
             )
 
@@ -243,7 +241,6 @@ def edit_bobbins(request, id):
                                'section_winding_length':bobbin.section_winding_length,
                       'section_winding_depth':bobbin.section_winding_depth,
                       'meterial_thickness':bobbin.meterial_thickness,
-                      'has_terminals':bobbin.has_terminals,
                       'number_terminals':bobbin.number_terminals}
                       )
 
@@ -253,6 +250,17 @@ def edit_bobbins(request, id):
 def update_bobbins(request, id):
     form = BobbinForm(request.POST)
 
+    if form.is_valid():
+        bobbin = Bobbin.objects.get(id=id)
+        bobbin.name = form.cleaned_data['name']
+        bobbin.core = form.cleaned_data['core']
+        bobbin.type = form.cleaned_data['type']
+        bobbin.section_winding_length = form.cleaned_data['section_winding_length']
+        bobbin.section_winding_depth = form.cleaned_data['section_winding_depth']
+        bobbin.meterial_thickness = form.cleaned_data['material_thickness']
+        bobbin.number_terminals = form.cleaned_data['number_terminals']
+        bobbin.save()
+        
     return redirect('bobbins')
 
 def delete_bobbins(request, id):

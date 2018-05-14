@@ -211,11 +211,16 @@ def bobbins(request):
             section_winding_length = form.cleaned_data['section_winding_length']
             section_winding_depth = form.cleaned_data['section_winding_depth']
             meterial_thickness = form.cleaned_data['meterial_thickness']
+            has_terminals = form.cleaned_data['has_terminals']
+            number_terminals = form.cleaned_data['number_terminals']
 
             bobbin = Bobbin(name=name, core=core, type=type,
                             section_winding_length=section_winding_length,
                             section_winding_depth=section_winding_depth,
-                            meterial_thickness=meterial_thickness)
+                            meterial_thickness=meterial_thickness,
+                            has_terminals=has_terminals,
+                            number_terminals=number_terminals
+            )
 
             bobbin.save()
 
@@ -237,8 +242,20 @@ def edit_bobbins(request, id):
     form = BobbinForm(initial={'name':bobbin.name, 'core':bobbin.core, 'type':bobbin.type,
                                'section_winding_length':bobbin.section_winding_length,
                       'section_winding_depth':bobbin.section_winding_depth,
-                      'meterial_thickness':bobbin.meterial_thickness}
+                      'meterial_thickness':bobbin.meterial_thickness,
+                      'has_terminals':bobbin.has_terminals,
+                      'number_terminals':bobbin.number_terminals}
                       )
 
     context = {'form': form, 'bobbin': bobbin}
     return render(request, 'designer/edit_bobbin.html', context)
+
+def update_bobbins(request, id):
+    form = BobbinForm(request.POST)
+
+    return redirect('bobbins')
+
+def delete_bobbins(request, id):
+    bobbin = Bobbin.objects.get(id=id)
+    bobbin.delete()
+    return redirect('bobbins')

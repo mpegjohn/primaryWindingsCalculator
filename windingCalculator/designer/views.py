@@ -20,6 +20,7 @@ from .models import Core
 from .forms import CoreForm
 from .models import Bobbin
 from .forms import BobbinForm
+from .forms import InductorForm
 
 def index(request):
     #wire = Wire.objects.get(id=1)
@@ -190,12 +191,6 @@ def delete_cores(request, id):
     core.delete()
     return redirect('cores')
 
-def inductor(request):
-    context = {}
-
-    return render(request, 'designer/inductor.html', context)
-
-
 def bobbins(request):
     bobbin_list = Bobbin.objects.all()
 
@@ -267,3 +262,25 @@ def delete_bobbins(request, id):
     bobbin = Bobbin.objects.get(id=id)
     bobbin.delete()
     return redirect('bobbins')
+
+def inductor(request):
+
+    if request.method == 'POST':
+        form = InductorForm(request.POST)
+        if form.is_valid():
+
+            name = form.cleaned_data['name']
+            core = form.cleaned_data['core']
+            bobbin = form.cleaned_data['bobbin']
+            inductance = form.cleaned_data['inductance']
+            dc_current = form.cleaned_data['dc_current']
+            initial_total_gap = form.cleaned_data['initial_total_gap']
+            current_density = form.cleaned_data['current_density']
+
+
+
+    else:
+        form = InductorForm()
+        context = {'form': form}
+
+    return render(request, 'designer/inductor.html', context)

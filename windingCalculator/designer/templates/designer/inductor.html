@@ -1,15 +1,19 @@
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    <head>
 
-<link rel="stylesheet" type="text/css" href="{% static 'designer/style.css' %}" />
+        <meta charset="UTF-8">
+        <title>Inductor</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'designer/style.css' %}" />
+    </head>
+    <body>
+        <h1>Edit data for core</h1>
+        <form action="/designer/inductor/{{ core.id }}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit" />
+        </form>
+    </body>
+</html>
 
-
-<form action="/designer/inductor/" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit" />
-</form>
-
-
-
-
-<img src="{% static "designer/EI_lamination.jpg" %}" alt="Lamination image"/>

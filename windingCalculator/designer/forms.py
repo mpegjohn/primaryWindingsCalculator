@@ -25,3 +25,12 @@ class BobbinForm(forms.Form):
     section_winding_depth = forms.FloatField()
     meterial_thickness = forms.FloatField()
     number_terminals = forms.IntegerField(initial=18)
+
+class InductorForm(forms.Form):
+    name = forms.CharField(max_length=20, label="Inductor name")
+    inductance = forms.FloatField(label="inductance in H")
+    dc_current = forms.FloatField(label="DC current in A")
+    current_density = forms.FloatField(label="Current density in A/mm^2", initial=3.0)
+    core = forms.ModelChoiceField(queryset=Core.objects.all(), label="Core to use")
+    bobbin = forms.ModelChoiceField(queryset=Bobbin.objects.all(), label="Bobbin to use")
+    initial_total_gap = forms.FloatField(label="Total gap in mm")

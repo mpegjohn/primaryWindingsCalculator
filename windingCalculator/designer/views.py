@@ -21,6 +21,8 @@ from .forms import CoreForm
 from .models import Bobbin
 from .forms import BobbinForm
 from .forms import InductorForm
+from .forms import SteelForm
+from .models import Steel
 
 def index(request):
     #wire = Wire.objects.get(id=1)
@@ -262,6 +264,68 @@ def delete_bobbins(request, id):
     bobbin = Bobbin.objects.get(id=id)
     bobbin.delete()
     return redirect('bobbins')
+
+def steel(request):
+    steel_list = Steel.objects.all()
+
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = SteelForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            supplier = form.cleaned_data['supplier']
+            grade = form.cleaned_data['grade']
+            thickness = form.cleaned_data['thickness']
+            gapped_permeability = form.cleaned_data['gapped_permeability']
+
+            steel = Steel(name=name, supplier=supplier, grade=grade, thickness=thickness, gapped_permeability=gapped_permeability)
+
+            steel.save()
+
+            context = {'form': form, 'steel_list': steel_list}
+
+            return render(request, 'designer/steel.html', context)
+    else:
+        # if a GET (or any other method) we'll create a blank form
+
+        form = SteelForm()
+
+        context = {'form': form, 'steel_list': steel_list}
+
+    return render(request, 'designer/steel.html', context)
+
+def edit_steel(request, id):
+    steel = Steel.objects.get(id=id)
+
+    form = steelForm(initial={'name':steel.name, 'supplier':steel.supplier, 'grade':steel.grade,
+                               'thickness':steel.thickness,
+                      'gapped_permeability':steel.gapped_permeability}
+                      )
+
+    context = {'form': form, 'steel': steel}
+    return render(request, 'designer/edit_steel.html', context)
+
+
+def update_steel(request, id):
+    form = SteelForm(request.POST)
+
+    if form.is_valid():
+        steel = Steel.objects.get(id=id)
+        steel.name = form.cleaned_data['name']
+        steel.supplier = form.cleaned_data['supplier']
+        steel.grade = form.cleaned_data['grade']
+        steel.thickness = form.cleaned_data['thickness']
+        steel.gapped_permeability = form.cleaned_data['gapped_permeability']
+        steel.save()
+
+    return redirect('steel')
+
+def delete_steel(request, id):
+    steel = Steel.objects.get(id=id)
+    steel.delete()
+    return redirect('steel')
 
 def inductor(request):
 

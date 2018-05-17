@@ -18,5 +18,8 @@ urlpatterns = [
     url(r'bobbins/edit/(?P<id>\d+)$', views.edit_bobbins),
     url(r'bobbins/update/(?P<id>\d+)$', views.update_bobbins),
     url(r'bobbins/delete/(?P<id>\d+)$', views.delete_bobbins, name='delete_bobbins'),
-
+    url(r'steel/$', views.steel, name='steel'),
+    url(r'steel/edit/(?P<id>\d+)$', views.edit_steel),
+    url(r'steel/update/(?P<id>\d+)$', views.update_steel),
+    url(r'steel/delete/(?P<id>\d+)$', views.delete_steel, name='delete_steel')
 ]

@@ -26,6 +26,13 @@ class BobbinForm(forms.Form):
     meterial_thickness = forms.FloatField()
     number_terminals = forms.IntegerField(initial=18)
 
+class SteelForm(forms.Form):
+    name = forms.CharField(max_length=100, label="Name")
+    supplier = forms.CharField(max_length=100)
+    grade = forms.CharField(max_length=100)
+    thickness = forms.FloatField()
+    gapped_permeability = forms.FloatField(default=1000.0)
+
 class InductorForm(forms.Form):
     name = forms.CharField(max_length=20, label="Inductor name")
     inductance = forms.FloatField(label="inductance in H")

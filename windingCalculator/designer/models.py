@@ -38,11 +38,16 @@ class Winding(models.Model):
     turns_per_layer = models.IntegerField()
     wire = models.ForeignKey(Wire)
 
-class steel(models.Model):
-    name = models.CharField(max_length=100)
+class Steel(models.Model):
+    name = models.CharField(max_length=100, default='M6 x 0.35')
     supplier = models.CharField(max_length=100)
-    grade = models.CharField(max_length=100)
-    thickness =models.FloatField()
+    grade = models.CharField(max_length=100, default='M6')
+    thickness = models.FloatField(default=0.35)
+    gapped_permeability = models.FloatField(default=1000.0)
+
+class general_properties(models.Model):
+    name = models.CharField(max_length=100)
+    value = models.FloatField()
 
 class Lamination(models.Model):
     name = models.CharField(max_length=20)

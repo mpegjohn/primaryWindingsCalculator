@@ -2,6 +2,7 @@ from django import forms
 from .models import Lamination
 from .models import Core
 from .models import Bobbin
+from .models import Steel
 
 class WireSizeForm(forms.Form):
     currentDensity = forms.FloatField(label="Current density in A/m^2", help_text="Enter the desired current density")
@@ -39,5 +40,6 @@ class InductorForm(forms.Form):
     dc_current = forms.FloatField(label="DC current in A")
     current_density = forms.FloatField(label="Current density in A/mm^2", initial=3.0)
     core = forms.ModelChoiceField(queryset=Core.objects.all(), label="Core to use")
+    steel = forms.ModelChoiceField(queryset=Steel.objects.all(), label="Steel type")
     bobbin = forms.ModelChoiceField(queryset=Bobbin.objects.all(), label="Bobbin to use")
     initial_total_gap = forms.FloatField(label="Total gap in mm")

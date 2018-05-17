@@ -32,6 +32,9 @@ class Wire(models.Model):
     def calc_area(self):
         return math.pi * ((self.diameter/2.0) ** 2)
 
+    def __str__(self):
+        return str(self.diameter)
+
 class Winding(models.Model):
     turns = models.IntegerField()
     layers = models.IntegerField()

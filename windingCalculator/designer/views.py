@@ -7,6 +7,8 @@ from django.shortcuts import redirect
 
 from django.http import HttpResponse
 
+import math
+
 # Create your views here.
 
 #def index(request):
@@ -340,6 +342,32 @@ def inductor(request):
             dc_current = form.cleaned_data['dc_current']
             initial_total_gap = form.cleaned_data['initial_total_gap']
             current_density = form.cleaned_data['current_density']
+            steel = form.cleaned_data['steel']
+
+            # Get the nearest wire size
+
+            wires = Wire.objects.order_by('diameter')
+
+            wire_to_use = None
+
+            for wire in wires:
+                # Find the first useable wire for this current density
+                if wire.calc_current_capacity(current_density) >= dc_current:
+                    wire_to_use = wire
+                    break
+
+
+            mag_path_length = core.calc_path_length()
+
+            area = core.calc_area()
+
+            permeability = steel.gapped_permeability
+
+            mu_0 = 4*math.pi*1e-10  # mu_0 in mm
+
+            turns = math.sqrt((inductance * (initial_total_gap + mag_path_length/permeability))/(mu_0*area))
+
+
 
 
 

@@ -9,10 +9,7 @@ from django.http import HttpResponse
 
 import math
 
-# Create your views here.
-
-#def index(request):
-#    return HttpResponse("Hello, world. You're at the designer index.")
+from .fitter import Fitter
 
 from .models import Wire
 from .forms import WireSizeForm
@@ -343,6 +340,7 @@ def inductor(request):
             initial_total_gap = form.cleaned_data['initial_total_gap']
             current_density = form.cleaned_data['current_density']
             steel = form.cleaned_data['steel']
+            grade = form.cleaned_data['wire_grade']
 
             # Get the nearest wire size
 
@@ -367,8 +365,9 @@ def inductor(request):
 
             turns = math.sqrt((inductance * (initial_total_gap + mag_path_length/permeability))/(mu_0*area))
 
-
-
+            fitter = Fitter(bobbin, wire, grade, turns, 0.97, 0.95)
+            fitter.calc_fit()
+            
 
 
     else:

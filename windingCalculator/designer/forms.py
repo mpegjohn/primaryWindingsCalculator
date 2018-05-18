@@ -39,6 +39,7 @@ class InductorForm(forms.Form):
     inductance = forms.FloatField(label="inductance in H")
     dc_current = forms.FloatField(label="DC current in A")
     current_density = forms.FloatField(label="Current density in A/mm^2", initial=3.0)
+    wire_grade = forms.ChoiceField(choices={'Grade 1': 1, 'Grade 2': 2})
     core = forms.ModelChoiceField(queryset=Core.objects.all(), label="Core to use")
     steel = forms.ModelChoiceField(queryset=Steel.objects.all(), label="Steel type")
     bobbin = forms.ModelChoiceField(queryset=Bobbin.objects.all(), label="Bobbin to use")

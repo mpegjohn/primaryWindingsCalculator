@@ -8,7 +8,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'designer/style.css' %}" />
     </head>
     <body>
-        <h1>Edit data for core</h1>
+        <h1>Edit data for inductor</h1>
         <form action="/designer/inductor/{{ core.id }}" method="post">
             {% csrf_token %}
             {{ form.as_p }}

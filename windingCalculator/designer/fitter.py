@@ -26,7 +26,7 @@ class Fitter(object):
 
         self.height = self.layers * diameter
 
-        if self.height > self.winding_height:
+        if self.height > winding_height:
             return False
         return True
 

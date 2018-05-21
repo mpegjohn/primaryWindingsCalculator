@@ -32,14 +32,14 @@ class SteelForm(forms.Form):
     supplier = forms.CharField(max_length=100)
     grade = forms.CharField(max_length=100)
     thickness = forms.FloatField()
-    gapped_permeability = forms.FloatField(default=1000.0)
+    gapped_permeability = forms.FloatField(initial=1000.0)
 
 class InductorForm(forms.Form):
     name = forms.CharField(max_length=20, label="Inductor name")
     inductance = forms.FloatField(label="inductance in H")
     dc_current = forms.FloatField(label="DC current in A")
     current_density = forms.FloatField(label="Current density in A/mm^2", initial=3.0)
-    wire_grade = forms.ChoiceField(choices={'Grade 1': 1, 'Grade 2': 2})
+    wire_grade = forms.ChoiceField(choices=(('Grade 1', 1), ('Grade 2', 2)))
     core = forms.ModelChoiceField(queryset=Core.objects.all(), label="Core to use")
     steel = forms.ModelChoiceField(queryset=Steel.objects.all(), label="Steel type")
     bobbin = forms.ModelChoiceField(queryset=Bobbin.objects.all(), label="Bobbin to use")

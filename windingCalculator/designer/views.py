@@ -298,7 +298,7 @@ def steel(request):
 def edit_steel(request, id):
     steel = Steel.objects.get(id=id)
 
-    form = steelForm(initial={'name':steel.name, 'supplier':steel.supplier, 'grade':steel.grade,
+    form = SteelForm(initial={'name':steel.name, 'supplier':steel.supplier, 'grade':steel.grade,
                                'thickness':steel.thickness,
                       'gapped_permeability':steel.gapped_permeability}
                       )
@@ -355,7 +355,7 @@ def inductor(request):
                     break
 
 
-            mag_path_length = core.calc_path_length()
+            mag_path_length = core.laminations.calc_path_length()
 
             area = core.calc_area()
 

@@ -48,6 +48,9 @@ class Steel(models.Model):
     thickness = models.FloatField(default=0.35)
     gapped_permeability = models.FloatField(default=1000.0)
 
+    def __str__(self):
+        return self.name
+
 class general_properties(models.Model):
     name = models.CharField(max_length=100)
     value = models.FloatField()

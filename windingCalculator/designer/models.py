@@ -123,7 +123,7 @@ class Inductor(models.Model):
     description = models.CharField(max_length=100)
 
     winding = models.ForeignKey(Winding)
-    core = models.ForeignKey(Core)
+    bobbin = models.ForeignKey(Bobbin)
 
     target_inductance = models.FloatField()
     current_density = models.FloatField()

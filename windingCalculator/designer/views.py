@@ -333,7 +333,6 @@ def inductor(request):
         if form.is_valid():
 
             name = form.cleaned_data['name']
-            core = form.cleaned_data['core']
             bobbin = form.cleaned_data['bobbin']
             inductance = form.cleaned_data['inductance']
             dc_current = form.cleaned_data['dc_current']
@@ -355,9 +354,9 @@ def inductor(request):
                     break
 
 
-            mag_path_length = core.laminations.calc_path_length()
+            mag_path_length = bobbin.core.laminations.calc_path_length()
 
-            area = core.calc_area()
+            area = bobbin.core.calc_area()
 
             permeability = steel.gapped_permeability
 

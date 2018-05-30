@@ -37,6 +37,8 @@ class Wire(models.Model):
 
 class Winding(models.Model):
     turns = models.IntegerField()
+    taps = models.CommaSeparatedIntegerField(max_length=100)
+    winding_number = models.IntegerField()
     layers = models.IntegerField()
     turns_per_layer = models.IntegerField()
     wire = models.ForeignKey(Wire)
@@ -122,8 +124,10 @@ class Inductor(models.Model):
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=100)
 
-    winding = models.ForeignKey(Winding)
+    windings = models.ManyToManyField(Winding)
     bobbin = models.ForeignKey(Bobbin)
+    steel = models.ForeignKey(Steel)
+    total_gap = models.FloatField()
 
     target_inductance = models.FloatField()
     current_density = models.FloatField()
@@ -132,7 +136,18 @@ class Inductor(models.Model):
     ac_voltage = models.FloatField()
 
 
+    def calc_turns(self):
+        mag_path_length = self.bobbin.core.laminations.calc_path_length()
 
+        area = self.bobbin.core.calc_area()
+
+        permeability = self.steel.gapped_permeability
+
+        mu_0 = 4 * math.pi * 1e-10  # mu_0 in mm
+
+        turns = math.sqrt((self.target_inductance * (self.total_gap + mag_path_length / permeability)) / (mu_0 * area))
+
+        return turns
 
     def resistance(self):
         return self.wire.resistance(self.mean_length_turns * self.turns)

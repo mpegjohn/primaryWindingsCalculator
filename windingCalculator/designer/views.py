@@ -22,6 +22,7 @@ from .forms import BobbinForm
 from .forms import InductorForm
 from .forms import SteelForm
 from .models import Steel
+from .models import Inductor
 
 def index(request):
     #wire = Wire.objects.get(id=1)
@@ -353,16 +354,15 @@ def inductor(request):
                     wire_to_use = wire
                     break
 
+            inductor = Inductor()
 
-            mag_path_length = bobbin.core.laminations.calc_path_length()
+            inductor.bobbin = bobbin
+            inductor.name = name
+            inductor.target_inductance = inductance
+            inductor.total_gap = initial_total_gap
+            inductor.steel = steel
 
-            area = bobbin.core.calc_area()
-
-            permeability = steel.gapped_permeability
-
-            mu_0 = 4*math.pi*1e-10  # mu_0 in mm
-
-            turns = math.sqrt((inductance * (initial_total_gap + mag_path_length/permeability))/(mu_0*area))
+            turns = inductor.calc_turns()
 
             fitter = Fitter(bobbin, wire, grade, turns, 0.97, 0.95)
             fitter.calc_fit()

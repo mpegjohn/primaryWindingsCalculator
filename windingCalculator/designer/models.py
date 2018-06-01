@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.core.validators import validate_comma_separated_integer_list
 import math
 
 # Create your models here.
@@ -37,11 +38,12 @@ class Wire(models.Model):
 
 class Winding(models.Model):
     turns = models.IntegerField()
-    taps = models.CommaSeparatedIntegerField(max_length=100)
+    taps = models.CharField(validators=[validate_comma_separated_integer_list], max_length=100)
     winding_number = models.IntegerField()
     layers = models.IntegerField()
     turns_per_layer = models.IntegerField()
     wire = models.ForeignKey(Wire)
+
 
 class Steel(models.Model):
     name = models.CharField(max_length=100, default='M6 x 0.35')

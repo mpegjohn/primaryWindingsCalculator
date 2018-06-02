@@ -43,6 +43,47 @@ class Winding(models.Model):
     layers = models.IntegerField()
     turns_per_layer = models.IntegerField()
     wire = models.ForeignKey(Wire)
+    wire_grade = models.IntegerField()
+
+    def calc_winding_height(self):
+        if self.wire_grade == 1:
+            wire_diameter = self.wire.grade_1_dia_max
+        else:
+            wire_diameter = self.wire.grade_2_dia_max
+
+        return (self.layers * wire_diameter)
+
+    def calc_mean_length_turn(self, toungue_width, stack_depth, distance_from_core):
+        mlt = 2 * (toungue_width + stack_depth) + math.pi * ((2 * distance_from_core) + self.calc_winding_height())
+
+        return mlt
+
+    def calc_length_m(self):
+        mlt = self.calc_mean_length_turn()
+        length_m = mlt * self.turns/1000.0
+
+        return length_m
+
+    def calc_resistance(self):
+        resistance = self.wire.calc_resistance(self.calc_length_m())
+
+        return  resistance
+
+    def calc_weight(self):
+        weight_kg = self.calc_length_m() * self.wire.calc_weight_per_m()/1000.0
+        return  weight_kg
+
+    def calc_vold_drop(self, current):
+        volts = self.calc_resistance() * current
+        return volts
+
+    def calc_watts(self, current):
+        wats = (current ** 2) * self.calc_resistance()
+        return wats
+
+    def calc_cost(self, cost_per_kg):
+        cost = self.calc_weight() * cost_per_kg
+        return cost
 
 
 class Steel(models.Model):

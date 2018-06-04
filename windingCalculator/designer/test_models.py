@@ -50,4 +50,4 @@ class WindingTestClass(TestCase):
         winding = Winding.objects.get(id=2)
         winding.turns = 1000
         winding.calc_mean_length_turn(toungue_width=10, stack_depth=10, distance_from_core=2)
-        self.assertAlmostEqual(winding.calc_resistance(), 1.291, delta=0.01)
+        self.assertAlmostEqual(winding.calc_resistance(), winding.calc_length_m() * 0.02176 , delta=0.01)

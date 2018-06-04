@@ -13,13 +13,13 @@ class Wire(models.Model):
     grade_2_dia_max = models.FloatField()
 
     def calc_resistance_per_m(self):
-        return 0.017241/(math.pi*(self.diameter/2) ** 2)
+        return 0.017241/self.calc_area()
         
     def calc_resistance(self, length):
         return  self.calc_resistance_per_m() * length
 
     def calc_weight_per_m(self):
-        return (math.pi*(self.diameter/2) ** 2) * 8.89
+        return self.calc_area() * 8.89
 
     def calc_weight(self, length):
         return self.calc_weight_per_m() * length

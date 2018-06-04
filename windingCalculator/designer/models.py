@@ -55,11 +55,12 @@ class Winding(models.Model):
 
     def calc_mean_length_turn(self, toungue_width, stack_depth, distance_from_core):
         mlt = 2 * (toungue_width + stack_depth) + math.pi * ((2 * distance_from_core) + self.calc_winding_height())
+        self.mlt = mlt
 
         return mlt
 
     def calc_length_m(self):
-        mlt = self.calc_mean_length_turn()
+        mlt = self.mlt
         length_m = mlt * self.turns/1000.0
 
         return length_m
@@ -192,5 +193,3 @@ class Inductor(models.Model):
 
         return turns
 
-    def resistance(self):
-        return self.wire.resistance(self.mean_length_turns * self.turns)

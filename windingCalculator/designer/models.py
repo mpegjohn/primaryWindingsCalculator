@@ -18,17 +18,17 @@ class Wire(models.Model):
     def calc_resistance(self, length):
         return  self.calc_resistance_per_m() * length
 
-    def calc_weight_per_m(self):
+    def calc_mass_per_m(self):
         return self.calc_area() * 8.89
 
-    def calc_weight(self, length):
-        return self.calc_weight_per_m() * length
+    def calc_mass(self, length):
+        return self.calc_mass_per_m() * length
 
     def calc_current_capacity(self, current_density):
         return self.calc_area() * current_density
 
     def calc_cost(self, length, price_per_kg):
-        return self.weight(length) * price_per_kg/1000
+        return self.calc_mass(length) * price_per_kg/1000
 
     def calc_area(self):
         return math.pi * ((self.diameter/2.0) ** 2)
@@ -70,9 +70,10 @@ class Winding(models.Model):
 
         return  resistance
 
-    def calc_weight(self):
-        weight_kg = self.calc_length_m() * self.wire.calc_weight_per_m()/1000.0
-        return  weight_kg
+    def calc_mass(self):
+        mass_kg = self.calc_length_m() * self.wire.calc_mass_per_m()/1000.0
+        mass_kg = self.wire.calc_mass(self.calc_length_m())
+        return  mass_kg
 
     def calc_vold_drop(self, current):
         volts = self.calc_resistance() * current
@@ -139,7 +140,7 @@ class Core(models.Model):
     def calc_cubic_cm(self):
        return (6 * ((self.laminations.tongue_width/10.0) ) ** 2) * self.stack/10.0
 
-    def calc_weight(self):
+    def calc_mass(self):
         return self.calc_cubic_cm() * .0078 * self.stack_factor
 
     def __str__(self):

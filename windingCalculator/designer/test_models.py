@@ -21,13 +21,13 @@ class WireTestClass(TestCase):
         wire = Wire.objects.get(id=1)
         self.assertAlmostEqual(wire.calc_resistance(10), 0.02176*10, 2)
 
-    def test_calc_weight_per_m(self):
+    def test_calc_mass_per_m(self):
         wire = Wire.objects.get(id=1)
-        self.assertAlmostEqual(wire.calc_weight_per_m(), 6.982, 2)
+        self.assertAlmostEqual(wire.calc_mass_per_m(), 6.982, 2)
 
-    def test_calc_weight(self):
+    def test_calc_mass(self):
         wire = Wire.objects.get(id=1)
-        self.assertAlmostEqual(wire.calc_weight(10), 6.982*10, 2)
+        self.assertAlmostEqual(wire.calc_mass(10), 6.982 * 10, 2)
 
 class WindingTestClass(TestCase):
 

@@ -56,8 +56,8 @@ def wire_size(request):
                 wire.resistance_per_m = wire.calc_resistance_per_m()
                 wire.current_capacity = wire.calc_current_capacity(cd)
                 wire.resistance = wire.calc_resistance(length)
-                wire.weight_per_m = wire.calc_weight_per_m()
-                wire.weight = wire.calc_weight(length)
+                wire.mass_per_m = wire.calc_mass_per_m()
+                wire.mass = wire.calc_mass(length)
 
             context = {'form': form, 'wire_list': wire_list, 'density': cd, 'length': length}
 
@@ -72,8 +72,8 @@ def wire_size(request):
             wire.resistance_per_m = wire.calc_resistance_per_m()
             wire.current_capacity = wire.calc_current_capacity(3.0)
             wire.resistance = wire.calc_resistance(1.0)
-            wire.weight_per_m = wire.calc_weight_per_m()
-            wire.weight = wire.calc_weight(1.0)
+            wire.mass_per_m = wire.calc_mass_per_m()
+            wire.mass = wire.calc_mass(1.0)
 
         context = {'form': form, 'wire_list': wire_list, 'density': 3.0, 'length': 1.0}
 
@@ -149,7 +149,7 @@ def cores(request):
 
             for core in core_list:
                 core.area = core.calc_area()
-                core.weight = core.calc_weight()
+                core.mass = core.calc_mass()
 
             context = {'form': form, 'core_list': core_list}
 
@@ -161,7 +161,7 @@ def cores(request):
 
         for core in core_list:
             core.area = core.calc_area()
-            core.weight = core.calc_weight()
+            core.mass = core.calc_mass()
 
         context = {'form': form, 'core_list': core_list}
 

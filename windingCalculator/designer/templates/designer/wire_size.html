@@ -19,8 +19,8 @@
             <th>Current capacity</th>
             <th>Resistance per m</th>
             <th>Resistance</th>
-            <th>Weight per m</th>
-            <th>Weight</th>
+            <th>Mass per m</th>
+            <th>Mass</th>
         </tr>
     {% for wire in wire_list %}
         <tr>
@@ -31,8 +31,8 @@
             <td>{{ wire.current_capacity }}</td>
             <td>{{ wire.resistance_per_m }}</td>
             <td>{{ wire.resistance }}</td>
-            <td>{{ wire.weight_per_m }}</td>
-            <td>{{ wire.weight }}</td>
+            <td>{{ wire.mass_per_m }}</td>
+            <td>{{ wire.mass }}</td>
         </tr>
     {% endfor %}
     </table>

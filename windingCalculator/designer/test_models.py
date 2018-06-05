@@ -6,6 +6,29 @@ from .models import Wire
 from .models import Winding
 import math
 
+
+
+class WireTestClass(TestCase):
+
+    def setUp(self):
+        Wire.objects.create(diameter=1.0, grade_1_dia_max=1, grade_2_dia_max=2)
+
+    def test_calc_resistance_per_m(self):
+        wire = Wire.objects.get(id=1)
+        self.assertAlmostEqual(wire.calc_resistance_per_m(), 0.02176, 2)
+
+    def test_calc_resistance(self):
+        wire = Wire.objects.get(id=1)
+        self.assertAlmostEqual(wire.calc_resistance(10), 0.02176*10, 2)
+
+    def test_calc_weight_per_m(self):
+        wire = Wire.objects.get(id=1)
+        self.assertAlmostEqual(wire.calc_weight_per_m(), 6.982, 2)
+
+    def test_calc_weight(self):
+        wire = Wire.objects.get(id=1)
+        self.assertAlmostEqual(wire.calc_weight(10), 6.982*10, 2)
+
 class WindingTestClass(TestCase):
 
     def setUp(self):
@@ -50,4 +73,5 @@ class WindingTestClass(TestCase):
         winding = Winding.objects.get(id=2)
         winding.turns = 1000
         winding.calc_mean_length_turn(toungue_width=10, stack_depth=10, distance_from_core=2)
-        self.assertAlmostEqual(winding.calc_resistance(), winding.calc_length_m() * 0.02176 , delta=0.01)
+        self.assertAlmostEqual(winding.calc_resistance(), winding.calc_length_m() * 0.02176, 1)
+
